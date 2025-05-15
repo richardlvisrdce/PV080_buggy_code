@@ -2,6 +2,7 @@ import sys
 import os
 import yaml
 import flask
+import importlib
 
 app = flask.Flask(__name__)
 
@@ -26,7 +27,8 @@ def print_nametag(format_string, person):
 def fetch_website(urllib_version, url):
     # Import the requested version (2 or 3) of urllib
     if urllib_version == 2 or urllib_version == 3:
-        exec(f"import urllib{urllib_version} as urllib", globals())
+        module_name = f"urllib{urllib_version}"
+    urllib = importlib.import_module(module_name)
     # Fetch and print the requested URL
  
     try:
